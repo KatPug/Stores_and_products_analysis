@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: stg_device
+    columns:
+      - name: id
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: type
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+
+      - name: store_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_store')  # Reference the 'store' table
+              field: id             # The primary key in the 'store' table
+              severity: error              
+      - name: load_date
+        tests:
+          - not_null:
+              severity: error

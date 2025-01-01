@@ -1,0 +1,71 @@
+models:
+  - name: int_transactions
+    description: "information about transactions of each store"
+    config:
+      group: sales
+    access: private
+
+    columns:
+      - name: id
+        description: id of the store
+        tests:
+          - not_null:
+              severity: error
+          - relationships:
+              to: ref('stg_store')
+              field: store_id
+              severity: error          
+
+      - name: transaction_day
+        tests:
+          - not_null
+
+      - name: happened_at
+        tests:
+          - not_null
+
+      - &country
+        name: country
+        tests:
+          - not_null
+
+      - name: city
+        tests:
+          - not_null
+
+      - name: store_name
+        tests:
+          - not_null
+
+      - name: device_id
+        tests:
+          - not_null
+
+      - name: device_type
+        tests:
+          - not_null
+
+      - name: typology
+        description: "store type"
+        tests:
+          - not_null
+
+      - name: status
+        description: "status of these transactions"
+        tests:
+          - not_null
+
+      - name: num_transactions
+        description: "total quantity of transactions"
+        tests:
+          - not_null
+
+      - name: sum_transactions
+        description: "total amount of trancastions"
+        tests:
+          - not_null
+
+      - name: transaction_rank
+        description: "rank of transaction per store"
+        tests:
+          - not_null

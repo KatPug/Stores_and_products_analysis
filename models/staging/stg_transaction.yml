@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: stg_transaction
+    description: 'Table of 1 row per transaction'
+    columns:
+      - name: id
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: device_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_device')  # Reference the 'device' table
+              field: id             # The primary key in the 'device' table     
+
+      - name: created_at
+        tests:
+          - not_null
+
+      - name: happened_at
+        description: "When the payment was initiated"
+        tests:
+          - not_null
+
+      - name: transaction_day
+        tests:
+          - not_null
+
+      - name: load_date
+        tests:
+          - not_null
+
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              name: unexpected_order_status
+              values:
+                - accepted
+                - refused
+                - cancelled
+
+      - name: product_name
+        tests:
+          - not_null
+
+      - name: product_sku
+        tests:
+          - not_null 
+
+      - name: category_name
+        tests:
+          - not_null          
+
+      - name: amount_eur
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0

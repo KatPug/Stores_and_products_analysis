@@ -1,0 +1,100 @@
+version: 2
+
+groups:
+  - name: sales
+    owner:
+      email: sales@my-company.com
+      slack: sales-data
+      github: sales-data-team
+
+models:
+  - name: mart_stores
+    description: "information about transactions of each store"
+    config:
+      group: sales
+    access: private
+
+    columns:
+      - name: store_id
+        description: id of the store
+        tests:
+          - not_null:
+              severity: error    
+
+      - name: store_name
+        tests:
+          - not_null
+
+      - name: store_created_at
+        tests:
+          - not_null
+
+      - &country
+        name: country
+        tests:
+          - not_null
+
+      - name: city
+        tests:
+          - not_null
+
+      - name: typology
+        description: "store type"
+        tests:
+          - not_null
+
+      - name: device_type
+        description: "type of deviced used"
+        tests:
+          - not_null
+
+      - name: num_transactions
+        description: "total quantity of transactions"
+        tests:
+          - not_null
+
+      - name: sum_transactions
+        description: "total amount of trancastions"
+        tests:
+          - not_null
+
+      - name: days_to_fifth_transaction
+        description: "time for a store to perform its 5 first transactions"
+
+  - name: mart_products
+    description: "Table of products bought in stores"
+    config:
+      group: sales
+    access: private
+
+    columns:
+      - name: transaction_day
+        tests:
+          - not_null
+
+      - name: product_name
+        tests:
+          - not_null
+
+      - name: product_sku
+        tests:
+          - not_null
+
+      - name: category_name
+        tests:
+          - not_null
+
+      - name: country
+        tests:
+          - not_null
+
+      - name: num_transactions
+        description: "total quantity of transactions"
+        tests:
+          - not_null
+
+      - name: sum_transactions
+        description: "total amount of trancastions"
+        tests:
+          - not_null
+

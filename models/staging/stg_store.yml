@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: stg_store
+    columns:
+      - name: id
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: created_at
+        tests:
+          - not_null
+
+      - name: load_date
+        tests:
+          - not_null
+
+      - name: store_name
+        tests:
+          - not_null
+
+      - name: city
+        tests:
+          - not_null 
+
+      - name: country
+        tests:
+          - not_null          
+
+      - name: typology
+        tests:
+          - not_null          
